@@ -64,10 +64,10 @@ public struct FlightAssessment: Sendable {
         if aspectRatio < 3 { notes.append("Increase span or reduce chord for a more efficient wing.") }
         if design.centerOfGravity < 0.20 { notes.append("Move the center of gravity aft slightly; it is very nose-heavy.") }
         if design.centerOfGravity > 0.40 { notes.append("Move the center of gravity forward; this position risks a stall."); severe = true }
-        if tailVolume < 0.25 { notes.append("Increase horizontal-tail area or tail arm for better pitch stability.") }
+        if tailVolume + 0.000_001 < 0.25 { notes.append("Increase horizontal-tail area or tail arm for better pitch stability.") }
         if wingLoading > 18 { notes.append("Reduce mass or add wing area; wing loading is high for a simple balsa glider.") }
         if notes.isEmpty { notes.append("Balanced starting point. Test with short, gentle hand launches and adjust in small steps.") }
-        let verdict: FlightVerdict = severe ? .unsafe : (notes.count == 1 && aspectRatio >= 3 && tailVolume >= 0.25 ? .ready : .caution)
+        let verdict: FlightVerdict = severe ? .unsafe : (notes.count == 1 && aspectRatio >= 3 && tailVolume + 0.000_001 >= 0.25 ? .ready : .caution)
         self.verdict = verdict
         self.messages = notes
     }
