@@ -1,0 +1,16 @@
+name: macOS build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the native app
+        run: swift build
+      - name: Run core-model tests
+        run: swift test
