@@ -12,6 +12,10 @@ swift run AeryAir
 
 The app is intentionally self-contained: edit the wing, tail, mass, and balance values; the planform and flight assessment update immediately.
 
+## Easy install
+
+Download `AeryAir-macOS.dmg` from the latest GitHub release, open it, and drag **Aery Air** to Applications. It is built for macOS 14+ and Apple Silicon. The bundle is ad-hoc signed but not notarized; on first launch, macOS may ask you to Control-click the app and choose **Open**.
+
 ## Scope
 
 This is a clean-room SwiftUI implementation based on the published Aery32 documentation and observed behavior. It does not reuse the original Visual Basic binary or source code.
