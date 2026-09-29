@@ -9,7 +9,9 @@ app_dir="$stage_dir/Aery Air.app"
 rm -rf "$output_dir"
 mkdir -p "$app_dir/Contents/MacOS" "$app_dir/Contents/Resources"
 
-binary_dir="$(cd "$root_dir" && swift build -c release --show-bin-path)"
+cd "$root_dir"
+swift build -c release
+binary_dir="$(swift build -c release --show-bin-path)"
 cp "$binary_dir/AeryAir" "$app_dir/Contents/MacOS/AeryAir"
 cp "$root_dir/Packaging/Info.plist" "$app_dir/Contents/Info.plist"
 
