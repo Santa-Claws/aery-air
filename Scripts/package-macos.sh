@@ -4,7 +4,7 @@ set -euo pipefail
 root_dir="$(cd "$(dirname "$0")/.." && pwd)"
 output_dir="$root_dir/dist"
 stage_dir="$output_dir/stage"
-app_dir="$stage_dir/Aery Air.app"
+app_dir="$stage_dir/Aery.app"
 
 rm -rf "$output_dir"
 mkdir -p "$app_dir/Contents/MacOS" "$app_dir/Contents/Resources"
@@ -17,4 +17,4 @@ cp "$root_dir/Packaging/Info.plist" "$app_dir/Contents/Info.plist"
 
 # Ad-hoc signing makes the bundle structurally valid without an Apple Developer certificate.
 codesign --force --deep --sign - "$app_dir"
-hdiutil create -volname "Aery Air" -srcfolder "$app_dir" -ov -format UDZO "$output_dir/AeryAir-macOS.dmg"
+hdiutil create -volname "Aery" -srcfolder "$app_dir" -ov -format UDZO "$output_dir/Aery-macOS.dmg"

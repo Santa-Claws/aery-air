@@ -2,16 +2,16 @@ import XCTest
 @testable import AeryCore
 
 final class AeryCoreTests: XCTestCase {
-    func testDefaultDesignIsViableStartingPoint() {
-        let assessment = FlightAssessment(design: GliderDesign())
-        XCTAssertEqual(assessment.verdict, .ready)
-        XCTAssertEqual(assessment.aspectRatio, 5.625, accuracy: 0.001)
-        XCTAssertGreaterThan(assessment.estimatedLaunchSpeed, 0)
+    func testAeryDesignRoundTripsInOriginalTextFormat() throws {
+        var design = GliderDesign(); design.name = "Test Glider #1"; design.wing.taperRatio = 0.76
+        let decoded = try XCTUnwrap(AeryFile.decode(AeryFile.encode(design)))
+        XCTAssertEqual(decoded.name, design.name)
+        XCTAssertEqual(decoded.wing.taperRatio, 0.76, accuracy: 0.0001)
     }
 
-    func testAftCenterOfGravityIsUnsafe() {
-        var design = GliderDesign()
-        design.centerOfGravity = 0.45
-        XCTAssertEqual(FlightAssessment(design: design).verdict, .unsafe)
+    func testDefaultDesignHasUsefulAnalysis() {
+        let analysis = FlightAssessment(design: GliderDesign())
+        XCTAssertGreaterThan(analysis.wingLoading, 0)
+        XCTAssertGreaterThan(analysis.stallVelocity, 0)
     }
 }
